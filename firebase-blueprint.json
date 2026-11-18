@@ -1,0 +1,213 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile and gaming preferences for HEADSHOT LAB.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 254 },
+        "displayName": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "selectedDeviceId": { "type": "string", "maxLength": 128 },
+        "selectedDeviceName": { "type": "string", "maxLength": 120 },
+        "preferredLanguage": { "type": "string", "enum": ["en", "hi"] },
+        "themeMode": { "type": "string", "enum": ["dark", "amoled"] },
+        "favoriteWeapons": { "type": "array", "description": "Up to 10 favorite weapon names" },
+        "gameplayStyles": { "type": "array", "description": "Up to 10 selected gameplay styles" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "displayName", "preferredLanguage", "themeMode", "createdAt", "updatedAt"]
+    },
+    "AdminRecord": {
+      "title": "AdminRecord",
+      "description": "Trusted administrator grant document keyed by Firebase Auth UID.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "email": { "type": "string", "format": "email", "maxLength": 254 },
+        "grantedBy": { "type": "string", "maxLength": 128 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Device": {
+      "title": "Device",
+      "description": "Verified smartphone hardware profile for Free Fire India optimization.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "brand": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "series": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "ramVariants": { "type": "array" },
+        "storageVariants": { "type": "array" },
+        "processor": { "type": "string", "minLength": 1, "maxLength": 120 },
+        "refreshRates": { "type": "array" },
+        "resolution": { "type": "string", "minLength": 3, "maxLength": 40 },
+        "displaySize": { "type": "string", "minLength": 2, "maxLength": 30 },
+        "os": { "type": "string", "minLength": 2, "maxLength": 50 },
+        "fpsOptions": { "type": "array" },
+        "releaseYear": { "type": "integer" },
+        "tier": { "type": "string", "enum": ["budget", "mid-range", "flagship", "gaming"] },
+        "verified": { "type": "boolean" },
+        "archived": { "type": "boolean" },
+        "updatedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "brand", "series", "model", "ramVariants", "storageVariants", "processor", "refreshRates", "resolution", "displaySize", "os", "fpsOptions", "releaseYear", "tier", "verified", "createdAt", "updatedAt"]
+    },
+    "SensitivityProfile": {
+      "title": "SensitivityProfile",
+      "description": "AI-generated or calibrated Free Fire India sensitivity configuration.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "deviceName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "deviceBrand": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "deviceModel": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "deviceTier": { "type": "string", "enum": ["budget", "mid-range", "flagship", "gaming", "custom"] },
+        "isCustomDevice": { "type": "boolean" },
+        "isTestedSetting": { "type": "boolean" },
+        "gameplayStyles": { "type": "array" },
+        "accuracyFocus": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "favoriteWeapons": { "type": "array" },
+        "sensitivityScaleMax": { "type": "integer" },
+        "sensitivity": { "type": "object" },
+        "reasoning": { "type": "object" },
+        "weaponRecommendations": { "type": "array" },
+        "calibrationTips": { "type": "array" },
+        "confidence": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "limitations": { "type": "array" },
+        "parentProfileId": { "type": "string", "maxLength": 128 },
+        "calibrationIssue": { "type": "string", "maxLength": 140 },
+        "isFavorite": { "type": "boolean" },
+        "shareCode": { "type": "string", "minLength": 4, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "deviceName", "deviceBrand", "deviceModel", "deviceTier", "isCustomDevice", "isTestedSetting", "gameplayStyles", "accuracyFocus", "favoriteWeapons", "sensitivityScaleMax", "sensitivity", "reasoning", "weaponRecommendations", "calibrationTips", "confidence", "limitations", "isFavorite", "shareCode", "createdAt", "updatedAt"]
+    },
+    "SharedProfile": {
+      "title": "SharedProfile",
+      "description": "Publicly readable sensitivity snapshot without PII.",
+      "type": "object",
+      "properties": {
+        "shareId": { "type": "string", "minLength": 4, "maxLength": 64, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "ownerId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "deviceName": { "type": "string", "minLength": 1, "maxLength": 140 },
+        "gameplayStyles": { "type": "array" },
+        "accuracyFocus": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "sensitivityScaleMax": { "type": "integer" },
+        "sensitivity": { "type": "object" },
+        "reasoning": { "type": "object" },
+        "confidence": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["shareId", "ownerId", "deviceName", "gameplayStyles", "accuracyFocus", "sensitivityScaleMax", "sensitivity", "reasoning", "confidence", "createdAt"]
+    },
+    "DeviceRequest": {
+      "title": "DeviceRequest",
+      "description": "User submission requesting addition of an unlisted smartphone.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "brand": { "type": "string", "minLength": 1, "maxLength": 60 },
+        "model": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "ram": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "processor": { "type": "string", "minLength": 1, "maxLength": 100 },
+        "refreshRate": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "resolution": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "os": { "type": "string", "minLength": 1, "maxLength": 40 },
+        "fpsOption": { "type": "string", "minLength": 1, "maxLength": 30 },
+        "notes": { "type": "string", "maxLength": 400 },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "brand", "model", "ram", "processor", "refreshRate", "resolution", "os", "fpsOption", "status", "createdAt", "updatedAt"]
+    },
+    "UserReport": {
+      "title": "UserReport",
+      "description": "User feedback report regarding device specs or sensitivity output.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "targetType": { "type": "string", "enum": ["device", "sensitivity", "bug"] },
+        "targetId": { "type": "string", "maxLength": 128 },
+        "title": { "type": "string", "minLength": 3, "maxLength": 120 },
+        "description": { "type": "string", "minLength": 5, "maxLength": 600 },
+        "status": { "type": "string", "enum": ["open", "resolved", "dismissed"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "targetType", "title", "description", "status", "createdAt", "updatedAt"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Admin-managed global settings including Free Fire India sensitivity scale limit and AI daily quota.",
+      "type": "object",
+      "properties": {
+        "sensitivityScaleMax": { "type": "integer" },
+        "dailyAiLimitPerUser": { "type": "integer" },
+        "announcementBanner": { "type": "string", "maxLength": 240 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["sensitivityScaleMax", "dailyAiLimitPerUser", "announcementBanner", "updatedAt"]
+    },
+    "AiUsageLog": {
+      "title": "AiUsageLog",
+      "description": "Per-user daily AI generation counter for rate limiting and admin analytics.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[a-zA-Z0-9_\\-]+$" },
+        "dateKey": { "type": "string", "minLength": 10, "maxLength": 10, "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "count": { "type": "integer" },
+        "lastModel": { "type": "string", "minLength": 1, "maxLength": 80 },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "dateKey", "count", "lastModel", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile and saved preferences"
+    },
+    "/admins/{userId}": {
+      "schema": { "$ref": "#/entities/AdminRecord" },
+      "description": "Admin access registry"
+    },
+    "/devices/{deviceId}": {
+      "schema": { "$ref": "#/entities/Device" },
+      "description": "Public verified smartphone catalog managed by admins"
+    },
+    "/sensitivityProfiles/{profileId}": {
+      "schema": { "$ref": "#/entities/SensitivityProfile" },
+      "description": "User-owned AI sensitivity profiles and calibration history"
+    },
+    "/sharedProfiles/{shareId}": {
+      "schema": { "$ref": "#/entities/SharedProfile" },
+      "description": "Publicly shareable sensitivity snapshots without PII"
+    },
+    "/deviceRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/DeviceRequest" },
+      "description": "User-submitted requests for unlisted smartphones"
+    },
+    "/userReports/{reportId}": {
+      "schema": { "$ref": "#/entities/UserReport" },
+      "description": "User reports for inaccurate specs or sensitivity recommendations"
+    },
+    "/appSettings/{settingId}": {
+      "schema": { "$ref": "#/entities/AppSettings" },
+      "description": "Global application configuration and scale limits"
+    },
+    "/aiUsageLogs/{usageId}": {
+      "schema": { "$ref": "#/entities/AiUsageLog" },
+      "description": "Daily AI generation usage counts per user"
+    }
+  }
+}

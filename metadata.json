@@ -1,0 +1,6 @@
+{
+  "name": "HEADSHOT LAB",
+  "description": "AI-Powered Free Fire India Sensitivity Generator & Gaming Optimization Platform. Personalized device-aware sensitivity settings, calibration mode, weapon optimization, and profile comparison.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
